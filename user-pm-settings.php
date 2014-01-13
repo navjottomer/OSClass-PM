@@ -2,14 +2,18 @@
 if(osc_is_web_user_logged_in()){
 $userSettings = ModelPM::newInstance()->getUserPmSettings(osc_logged_user_id());
 ?>
+<div class="panel panel-success row">
+		<div class="panel-heading">
+			<strong><?php _e('User account manager', 'tuffclassified') ; ?></strong>
+		</div>
 <div class="content user_account">
-    <h1>
-        <strong><?php _e('PM Settings', 'osclass_pm'); ?></strong>
-    </h1>
-    <div id="sidebar">
-        <?php echo osc_private_user_menu(); ?>
-    </div>
-    <div id="main">
+
+			<div id="sidebar" class="col-md-3">
+				<?php echo tfc_private_user_menu() ; ?>
+				<div class="user-dashboard-widget"><?php osc_show_widgets('user-dashboard'); ?></div>
+			</div>
+    <div id="main" class="col-md-9">
+        <legend><?php _e('PM Settings', 'osclass_pm'); ?></legend>
     <form action="<?php echo osc_base_url() . 'oc-content/plugins/osclass_pm/user-proc.php'; ?>" method="POST">
       <input type="hidden" name="page" value="custom" />
       <input type="hidden" name="file" value="osclass_pm/user-proc.php" />
@@ -58,3 +62,4 @@ Session::newInstance()->_setReferer(osc_user_login_url() . '&http_referer=' . os
 // HACK TO DO A REDIRECT ?>
     	<script>location.href="<?php echo osc_user_login_url(); ?>"</script>
 <?php } ?>
+</div>

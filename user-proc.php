@@ -218,7 +218,13 @@ switch(Params::getParam('option')){
       $flashAlert = Params::getParam('flashAlert');
       $saveSent   = Params::getParam('saveSent');
       $user_id    = Params::getParam('user_id');
-      ModelPM::newInstance()->updatePmSettings($user_id, $emailAlert,$flashAlert,$saveSent);
+      
+      $checkUserExists = ModelPM::newInstance()->getUserPmSettings($user_id);
+		if( $checkUserExists ) {
+			ModelPM::newInstance()->updatePmSettings($user_id, $emailAlert, $flashAlert, $saveSent);
+		} else {			
+			ModelPM::newInstance()->insertUserPmSettings($user_id, $emailAlert, $flashAlert, $saveSent);
+		}
       osc_add_flash_ok_message(__('Your Settings have been saved!','osclass_pm'));
       // HACK TO DO A REDIRECT ?>
     	 <script>location.href="<?php echo osc_base_url(true) . '?page=custom&file=osclass_pm/user-pm-settings.php'; ?>"</script>

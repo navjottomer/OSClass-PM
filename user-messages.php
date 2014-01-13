@@ -15,14 +15,18 @@
    $words[] = array('<div class="messQuote">','</div>', '<div class="quoteAuthor">','</div>');
    $message  = osc_mailBeauty($pm['pm_message'], $words) ;
 ?>
+<div class="panel panel-success row">
+		<div class="panel-heading">
+			<strong><?php _e('User account manager', 'tuffclassified') ; ?></strong>
+		</div>
 <div class="content user_account">
-    <h2>
-        <strong><?php echo __('Message: ', 'osclass_pm') . osc_highlight($pm['pm_subject'], 50); ?></strong>
-    </h2>
-    <div id="sidebar">
-        <?php echo osc_private_user_menu(); ?>
-    </div>
-    <div id="main">
+
+			<div id="sidebar" class="col-md-3">
+				<?php echo tfc_private_user_menu() ; ?>
+				<div class="user-dashboard-widget"><?php osc_show_widgets('user-dashboard'); ?></div>
+			</div>
+    <div id="main" class="col-md-9">
+        <legend><?php echo __('Message: ', 'osclass_pm') . osc_highlight($pm['pm_subject'], 50); ?></legend>
       <?php if(Params::getParam('box') == 'inbox') { ?>
          <a href="<?php echo osc_base_url(true) . '?page=custom&file=osclass_pm/user-inbox.php'; ?>">Back to inbox</a>
       <?php } elseif(Params::getParam('box') == 'outbox') { ?>
@@ -63,7 +67,8 @@
     </div>
 </div>
 <?php } else { 
-Session::newInstance()->_setReferer(osc_user_login_url() . '&http_referer=' . osc_base_url(true) . '?page=custom&file=osclass_pm/user-messages.php?message=' . Params::getParam('message') . '&box=' . Params::getParam('box') );
+Session::newInstance()->_setReferer(osc_user_login_url() . '&http_referer=' . osc_base_url(true) . '?page=custom&file=osclass_pm/user-messages.php&message=' . Params::getParam('message') . '&box=' . Params::getParam('box') );
 // HACK TO DO A REDIRECT ?>
     	<script>location.href="<?php echo osc_user_login_url(); ?>"</script>
 <?php } ?>
+</div>

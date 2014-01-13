@@ -2,14 +2,20 @@
    $recipPMs = ModelPM::newInstance()->getRecipientMessages(osc_logged_user_id(), 1, 0, 'pm_id', 'DESC');
    $recipCount = count($recipPMs);
 ?>
+<div class="panel panel-success row">
+		<div class="panel-heading">
+			<strong><?php _e('User account manager', 'tuffclassified') ; ?></strong>
+		</div>
 <div class="content user_account">
-    <h1>
-        <strong><?php _e('Inbox', 'osclass_pm'); ?></strong>
-    </h1>
-    <div id="sidebar">
-        <?php echo osc_private_user_menu(); ?>
-    </div>
-    <div id="main">
+
+			<div id="sidebar" class="col-md-3">
+				<?php echo tfc_private_user_menu() ; ?>
+				<div class="user-dashboard-widget"><?php osc_show_widgets('user-dashboard'); ?></div>
+			</div>
+    <div id="main" class="col-md-9">
+        
+        <legend><?php _e('Inbox', 'osclass_pm'); ?></legend>
+    
             <h2><?php _e('Inbox', 'osclass_pm'); ?></h2> <a href="<?php echo osc_base_url(true) . '?page=custom&file=osclass_pm/user-send.php&userId=0&mType=new';?>"><?php echo __('Send PM to the','osclass_pm') . ' ' . pmAdmin(); ?></a><br /><br />
             <form action="<?php echo osc_base_url() . 'oc-content/plugins/osclass_pm/user-proc.php'; ?>" method="POST">
             <input type="hidden" name="page" value="custom" />
@@ -79,3 +85,4 @@ Session::newInstance()->_setReferer(osc_user_login_url() . '&http_referer=' . os
 // HACK TO DO A REDIRECT ?>
     	<script>location.href="<?php echo osc_user_login_url(); ?>"</script>
 <?php } ?>
+</div>
